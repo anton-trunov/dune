@@ -107,7 +107,7 @@ let build_c ~kind ~sctx ~dir ~expander ~include_flags (loc, src, dst) =
      Command.run ~dir:(Path.build dir)
        (Super_context.resolve_program ~loc:None ~dir sctx c_compiler)
        ( [ Command.Args.dyn flags
-         ; S [ A "-I"; Path ctx.stdlib_dir ]
+         ; S [ A "-I"; Path (Path.append_local ctx.stdlib_dir (Path.Local.of_string "caml")) ]
          ; include_flags
          ]
        @ output_param @ [ A "-c"; Dep src ] ));
